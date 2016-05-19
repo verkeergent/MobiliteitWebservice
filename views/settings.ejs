@@ -1,0 +1,139 @@
+<!-- views/profile.ejs -->
+<!doctype html>
+<html>
+<head>
+  <title>Mobiliteit</title>
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+  <link rel='stylesheet' href='/stylesheets/style.css'/>
+  <link rel="shortcut icon" href="/logo.ico" type="image/vnd.microsoft.icon">
+</head>
+<body>
+<div class="container">
+
+  <div class="page-header">
+    <h1><span class="fa fa-cog"></span> API Settings</h1>
+
+  </div>
+
+  <p><a href="/">home</a></p>
+
+  <% if (locals.message) { %>
+  <div class="alert alert-success"><%= message %></div>
+  <% } %>
+
+  <form method="post" action="/settings/api">
+    <div class="well">
+
+      <h3><span class="fa fa-map-marker"></span> Waze</h3>
+      <div class="well">
+        <h4><strong>Url</strong></h4>
+        <input type="text" class="form-control" value=<%= locals.wazeurl %> name="wazeurl">
+        </p>
+      </div>
+      <hr>
+
+
+      <div id="twittersettings">
+        <h3><span class="fa fa-twitter-square"></span> Twitter</h3>
+        <div class="well">
+          <h4><strong>API keys</strong></h4>
+          <strong> Consumer key: </strong>
+          <p><input type="text" class="form-control" value=<%= locals.twitterkeys.consumerkey %> name="consumerkey"></p>
+          <strong> Consumer secret: </strong>
+          <p><input type="text" class="form-control"
+                    value=<%= locals.twitterkeys.consumersecret %> name="consumersecret">
+          </p>
+          <strong> Access token: </strong>
+          <p><input type="text" class="form-control"
+                    value=<%= locals.twitterkeys.consumertokenkey %> name="consumertokenkey"></p>
+          <strong> Access token secret: </strong>
+          <p><input type="text" class="form-control"
+                    value=<%= locals.twitterkeys.consumertokensecret %> name="consumertokensecret"></p>
+        </div>
+
+        <div class="well">
+          <h4><strong>Accounts</strong></h4>
+          <% if(locals.twitteraccounts.length > 0) { %>
+          <% locals.twitteraccounts.forEach(function(account) { %>
+          <p>
+          <div id=<%= account.name %>>
+            <strong> Account name: </strong><br/>
+            <div class="col-lg-5">
+              <input type="text" class="form-control" value=<%= account.name %> name="twitteraccountname[]">
+            </div>
+            <a onclick="removeinput(this)" class="btn btn-danger"> X</a>
+          </div>
+          </p>
+
+          <% });} else { %>
+          <div class="col-lg-5">
+            <input type="text" class="form-control" name="newtwitteraccount">
+          </div>
+          <% } %>
+          <p id="newitems"></p>
+
+          <a onclick="addInput()" class="btn btn-default"> Add</a>
+        </div>
+
+      </div>
+      <hr>
+
+
+      <h3><span class="fa fa-location-arrow"></span> Coyote</h3>
+      <div class="well">
+
+        <strong>Login</strong>
+        <div class="row">
+          <div class="col-xs-3">
+            <input type="text" class="form-control" value=<%= locals.coyotelogin %> name="coyotelogin">
+          </div>
+        </div>
+        <br/>
+
+        <strong> Password: </strong>
+        <div class="row">
+          <div class="col-xs-3">
+            <input type="text" class="form-control" value=<%= locals.coyotepassword %> name="coyotepassword">
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <button type="submit" class="btn btn-primary btn-lg">Save</button>
+  </form>
+
+
+  <hr>
+  <p><a href="/">home</a></p>
+
+</div>
+
+<script>
+  function addInput() {
+
+    var input = document.createElement('div');
+
+    input.innerHTML = '<p>\
+        <div>\
+          <strong> Account name: </strong><br/>\
+            <div class="col-lg-5">\
+              <input type="text" class="form-control" value="" name="twitteraccountname[]">\
+            </div>\
+            <a onclick="removeinput(this)" class="btn btn-danger"> X</a>\
+        </div>\
+      </p>';
+
+    var inputs = document.getElementById("newitems");
+    inputs.appendChild(input);
+  }
+
+  function removeinput(id) {
+
+    id.parentNode.parentNode.removeChild(id.parentNode);
+
+  }
+</script>
+
+</body>
+</html>

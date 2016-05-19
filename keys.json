@@ -1,0 +1,18 @@
+{
+  "twitterkeys": {
+    "consumerkey": "",
+    "consumersecret": "",
+    "consumertokenkey": "",
+    "consumertokensecret": ""
+  },
+  "twitteraccounts": [
+    {
+      "name": ""
+    },
+    {
+      "name": ""
+    }
+  ],
+  "coyotelogin": "",
+  "coyotepassword": "",
+  "wazeurl": ""}

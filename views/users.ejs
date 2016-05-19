@@ -1,0 +1,45 @@
+<!doctype html>
+
+<!-- ASSIGN OUR ANGULAR MODULE -->
+<html ng-app="scotchTodo">
+<head>
+  <title>Mobiliteit</title>
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> <!-- load bootstrap css -->
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
+  <link rel="shortcut icon" href="/./logo.ico" type="image/vnd.microsoft.icon">
+  <link rel='stylesheet' href='/./stylesheets/style.css' />
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script><!-- load angular -->
+  <script src="javascripts/controllers/userController.js"></script>
+
+</head>
+<!-- SET THE CONTROLLER AND GET ALL TODOS WITH INITIALIZE FUNCTION -->
+<body ng-controller="mainController">
+<div class="container">
+
+  <div class="page-header">
+    <h1><span class="fa fa-users"></span> Users</h1>
+
+  </div>
+
+  <table border="1" style="width:100%">
+    <thead><tr><th>name</th><th>role</th></tr></thead>
+   <tbody>
+    <tr ng-repeat="user in users">
+      <td><a href="users/{{user.username}}">{{ user.username }}</a></td> <td><div ng-if="user.isAdmin">Admin</div><div ng-if="!user.isAdmin">User</div></td>
+    </tr>
+    </tbody>
+  </table>
+  <div ng-if="!users"><i class="fa fa-spinner fa-spin fa-5x"></i></div>
+
+
+  <a href="signup" class="btn btn-default"><span class="fa fa-user"></span> Add user</a>
+  <a href="users" class="btn btn-default"><span class="fa fa-code-fork"></span> JSON</a>
+
+  <hr>
+
+  <p><a href="/">home</a></p>
+
+</div>
+
+</body>
+</html>

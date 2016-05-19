@@ -1,0 +1,89 @@
+<!-- views/signup.ejs -->
+<!doctype html>
+<html>
+<head>
+  <title>Mobiliteit</title>
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> <!-- load bootstrap css -->
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
+  <link rel="shortcut icon" href="logo.ico" type="image/vnd.microsoft.icon">
+  <link rel='stylesheet' href='stylesheets/style.css' />
+  <style>
+    body 		{ padding-top:80px; }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <div class="col-sm-6 col-sm-offset-3">
+
+
+    <div class="page-header">
+      <h1><span class="fa fa-sign-in"></span>  Sign up</h1>
+
+    </div>
+
+
+    <!-- show any messages that come back with authentication -->
+    <% if (locals.message && message.length > 0) { %>
+    <div class="alert alert-danger"><%= message %></div>
+    <% } %>
+
+    <!-- LOGIN FORM -->
+    <form action="/signup" method="post" autocomplete="off">
+      <div class="form-group">
+        <input type="text" class="form-control" placeholder="Username" name="username" id="username">
+      </div>
+
+      <div class="form-group">
+        <input type="password" class="form-control" autocomplete="new-password" placeholder="Password" name="password" id="password">
+      </div>
+
+        <div class=" row col-xs-3">
+          <label>
+            <select class="form-control" name="isAdmin">
+              <option value="false">user</option>
+              <option value="true">admin</option>
+            </select>
+          </label>
+        </div>
+      <br/>
+      <br/>
+      <br/>
+
+      <div>
+      <button type="submit" class="btn btn-primary btn-lg" disabled id="signup">Sign up</button>
+      </div>
+    </form>
+    <hr>
+
+    <p><a href="/">home</a></p>
+
+  </div>
+
+</div>
+<script src="/./javascripts/jquery-1.12.3.min.js"></script>
+<script type="text/javascript">
+
+  $(function() {
+
+    $('#username').on('keyup', function () {
+      if ($(this).val().length>0&&$('#password').val().length>0) {
+        $('#signup').prop('disabled', false);
+      } else {
+        $('#signup').prop('disabled', true);
+      }
+    });
+
+    $('#password').on('keyup', function () {
+      if ($(this).val().length>0&&$('#username').val().length>0) {
+        $('#signup').prop('disabled', false);
+      } else {
+        $('#signup').prop('disabled', true);
+      }
+    });
+
+  });
+</script>
+
+</body>
+</html>

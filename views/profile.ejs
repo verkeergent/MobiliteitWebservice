@@ -1,0 +1,146 @@
+<!-- views/profile.ejs -->
+<!doctype html>
+<html>
+<head>
+  <title>Mobiliteit</title>
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+  <link rel='stylesheet' href='/./stylesheets/style.css'/>
+  <link rel="shortcut icon" href="/./logo.ico" type="image/vnd.microsoft.icon">
+</head>
+<body>
+<div class="container">
+
+  <div class="page-header">
+    <h1><span class="fa fa-user"></span> Profile</h1>
+
+  </div>
+
+  <% if (locals.message) { %>
+  <div class="alert alert-success"><%= message %></div>
+  <hr>
+  <% } %>
+
+  <div class="row">
+
+    <!-- LOCAL INFORMATION -->
+    <div class="col-sm-6">
+      <%if(user!=null){%>
+        <div class="well">
+
+          <h3><span class="fa fa-user"></span> <%= user.username %><br></h3>
+
+          <p>
+            <strong>id</strong>: <%= user._id %><br>
+          </p>
+
+          <p>
+            <strong>role</strong>: <%if(user.isAdmin){%>Admin<%}else{%>User<%}%><br>
+          </p>
+
+
+          <% if (user.permissions != null && user.permissions.length > 0){ %>
+
+          <p>
+            <strong>permissions: </strong>
+          </p>
+
+          <p>
+          <ul>
+            <% for(var i = 0; i < user.permissions.length; i++) { %>
+
+              <% if (user.permissions[i].allowed){ %>
+                <li><%= user.permissions[i].items %>
+              <% } %>
+            <% } %>
+          </ul>
+          </p>
+          <% } %>
+
+        </div>
+      <%}%>
+    </div>
+
+  </div>
+  <%if(currentuser.isAdmin){%>
+  <a href=/users/<%= user.username %>/edit class="btn btn-default"><span class="fa fa-pencil"></span> Edit</a>
+
+  <button type="button" class="btn btn-default" data-toggle="modal" data-target="#password_modal">Change passsword</button>
+
+  <!-- Modal -->
+  <div class="modal fade" id="password_modal" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Change password</h4>
+        </div>
+
+        <form method="post">
+          <div class="modal-body">
+            <p>New password:</p>
+            <input type="password" class="form-control" name="password" id="password">
+            <p>Confirm password:</p>
+            <input type="password" class="form-control" name="confirm_password" id="confirm_password">
+          </div>
+
+          <div class="alert alert-danger" id="messagediv">passwords don't match</div>
+
+
+
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary" id="btnsavepassword" disabled>Save</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+  <%}%>
+  <hr>
+  <%if(currentuser.isAdmin){%>
+  <p><a href="/usersView">users</a></p>
+  <%}%>
+  <p><a href="/">home</a></p>
+
+</div>
+
+
+
+<script src="/./javascripts/jquery-1.12.3.min.js"></script>
+<script src="/./javascripts/bootstrap.min.js"></script>
+<script type="text/javascript">
+
+  $(function() {
+
+    $('#password').on('keyup', function () {
+      if ($(this).val() == $('#confirm_password').val()&&$(this).val().length>0) {
+        $('#btnsavepassword').prop('disabled', false);
+        $('#messagediv').hide();
+      } else {
+        $('#btnsavepassword').prop('disabled', true);
+        $('#messagediv').show();
+      }
+    });
+
+    $('#confirm_password').on('keyup', function () {
+      if ($(this).val() == $('#password').val()&&$(this).val().length>0) {
+        $('#btnsavepassword').prop('disabled', false);
+        $('#messagediv').hide();
+      } else {
+        $('#btnsavepassword').prop('disabled', true);
+        $('#messagediv').show();
+      }
+    });
+
+
+  });
+</script>
+
+</body>
+</html>

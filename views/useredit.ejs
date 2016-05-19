@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Mobiliteit</title>
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+  <!-- load bootstrap css -->
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+  <!-- load fontawesome -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <link rel="shortcut icon" href="/./logo.ico" type="image/vnd.microsoft.icon">
+  <link rel='stylesheet' href='/../stylesheets/style.css'/>
+
+</head>
+
+<body>
+<div class="container">
+
+  <div class="page-header">
+    <h1><span class="fa fa-pencil"></span> Edit user</h1>
+
+  </div>
+
+  <div class="row">
+
+    <!-- LOCAL INFORMATION -->
+    <div class="col-sm-6">
+      <div class="well">
+        <form method="post" action="/users/<%=user.username%>/edit">
+
+          <p>
+            <strong>Username</strong>
+          </p>
+
+          <p>
+            <input type="text" class="form-control" value=<%= user.username %> name="username">
+          </p>
+
+          <% if(! user.isAdmin){%>
+          <p>
+              <select class="form-control" name="isAdmin">
+
+                <option value="false">user</option>
+                <option value="true">admin</option>
+
+              </select>
+          </p>
+          <%}%>
+
+          <% if (user.permissions!=null&&user.permissions.length>0){ %>
+
+          <p>
+            <strong>permissions</strong>
+          </p>
+
+          <p>
+            <select multiple name="permissions" size=<%= user.permissions.length %>>
+
+          <% for(var i=0; i<user.permissions.length; i++) {%>
+
+          <option <% if (user.permissions[i].allowed){ %> selected <%}%> ><%= user.permissions[i].items %></option>
+
+          <% } %>
+
+            </select>
+          </p>
+          <% } %>
+
+          <button type="submit" class="btn btn-primary btn-lg">Save</button>
+
+        </form>
+
+
+      </div>
+    </div>
+
+  </div>
+
+
+  <hr>
+  <p><a href="javascript:history.back()">cancel</a></p>
+
+</div>
+<script>
+  window.onmousedown = function (e) {
+    var el = e.target;
+    if (el.tagName.toLowerCase() == 'option' && el.parentNode.hasAttribute('multiple')) {
+      e.preventDefault();
+
+      // toggle selection
+      if (el.hasAttribute('selected')) el.removeAttribute('selected');
+      else el.setAttribute('selected', '');
+
+      // hack to correct buggy behavior
+      var select = el.parentNode.cloneNode(true);
+      el.parentNode.parentNode.replaceChild(select, el.parentNode);
+    }
+  }
+</script>
+</body>
+</html>
+
+

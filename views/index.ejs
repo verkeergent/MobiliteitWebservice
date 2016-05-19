@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Mobiliteit</title>
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+  <!-- load bootstrap css -->
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+  <!-- load fontawesome -->
+  <link rel="shortcut icon" href="logo.ico" type="image/vnd.microsoft.icon">
+  <link rel='stylesheet' href='stylesheets/style.css'/>
+
+</head>
+
+<body>
+<div class="container">
+
+  <div class="page-header">
+    <h1><span class="fa fa-home"></span> Mobiliteit</h1>
+  </div>
+
+  <p>Welcome to the site of the Mobility App</p>
+  <hr>
+
+  <% if (locals.message) { %>
+  <div class="alert alert-danger"><%= message %></div>
+  <% } %>
+
+  <div class="jumbotron text-center">
+    <% if (locals.user&&locals.user.isAdmin){ %>
+    <a href="/settings/api" class="btn btn-link" id="btnsettings"><span class="fa fa-cog"></span></a>
+    <% } %>
+
+
+    <p>Item JSON views</p>
+
+    <a href="/wazeItems" class="btn btn-default"><span class="fa fa-map-marker"></span> Waze items</a>
+    <a href="/twitterItems" class="btn btn-default"><span class="fa fa-twitter-square"></span> Twitter items</a>
+    <a href="/parkingItems" class="btn btn-default"><span class="fa fa-car"></span> Parking items</a>
+    <a href="/coyoteItems" class="btn btn-default"><span class="fa fa-location-arrow"></span> Coyote items</a>
+    <a href="/vgsItems" class="btn btn-default"><span class="fa fa-map-signs"></span> VGS items</a>
+    <!--<a href="mailItems" class="btn btn-default"><span class="fa fa-envelope"></span> Mail items</a>-->
+  </div>
+
+  <% if (locals.user&&locals.user.isAdmin){ %>
+  <div class="jumbotron text-center">
+
+    <p>Users:</p>
+
+    <a href="/usersView" class="btn btn-default"><span class="fa fa-users"></span> Users</a>
+  </div>
+  <% } %>
+
+
+  <% if (locals.user){ %>
+  <div class="jumbotron text-center">
+
+    <p>Applicatie:</p>
+    <h5>Participate in the Bèta test </h5> <a href="https://play.google.com/apps/testing/com.stadgent.mobiliteitapp" target="_blank" ></span> here</a>
+  </div>
+  <% } %>
+
+
+  <div class="jumbotron text-center">
+
+    <p>Account:</p>
+
+    <% if (!user) { %>
+
+    <a href="/login" class="btn btn-default"><span class="fa fa-user"></span> Log in</a>
+
+    <% } else { %>
+
+    <h5><%= user.username %></h5>
+    <a href="/profile" class="btn btn-default"><span class="fa fa-user"></span> Profile</a>
+    <a href="/logout" class="btn btn-default"><span class="fa fa-user"></span> Log out</a>
+    <% } %>
+
+  </div>
+
+
+  <footer>
+    <p><br/>Florian Goeteyn - under construction</p>
+  </footer>
+
+</div>
+</body>
+</html>
