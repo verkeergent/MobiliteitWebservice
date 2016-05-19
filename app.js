@@ -36,8 +36,7 @@ var options = { server: { socketOptions: { keepAlive: 300000, connectTimeoutMS: 
   replset: { socketOptions: { keepAlive: 300000, connectTimeoutMS : 30000 } } };
 
 //mongodb database connection
-mongoose.connect("mongodb://mobiliteitgent:mobiliteitgent@ds025792.mlab.com:25792/mobiliteitdb", options);
-//mongoose.connect('mongodb://localhost/mobiliteit');
+mongoose.connect('mongodb://localhost/mobiliteit');
 
 mongoose.connection.on('open', function (ref) {
   console.log('Connected to mongo server. Ready state: ' + mongoose.connection.readyState);
